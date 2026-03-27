@@ -1,11 +1,22 @@
 {
 	"extends": "expo/tsconfig.base",
 	"compilerOptions": {
-		"strict": true,
 		"paths": {
 			"@/*": ["./src/*"],
 			"@/assets/*": ["./assets/*"]
-		}
+		},
+
+		// Best practices
+		"strict": true,
+		"skipLibCheck": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+
+		// Some stricter flags (disabled by default)
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noPropertyAccessFromIndexSignature": false
 	},
-	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+	"include": ["./**/*.ts", "./**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
