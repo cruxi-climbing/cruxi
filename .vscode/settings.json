@@ -1,6 +1,8 @@
 {
 	"editor.formatOnSave": true,
-	"conventionalCommits.scopes": [
-		"mobile"
-	]
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": "explicit",
+		"source.sortMembers": "explicit"
+	},
+	"conventionalCommits.scopes": ["mobile", "bun"]
 }
