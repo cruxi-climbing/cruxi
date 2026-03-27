@@ -1,0 +1,23 @@
+{
+	"name": "cruxi",
+	"type": "module",
+	"private": true,
+	"packageManager": "bun@1.2.0",
+	"scripts": {
+		"dev": "turbo dev",
+		"check-types": "turbo check-types",
+		"build": "turbo build",
+		"format-and-lint": "biome check .",
+		"format-and-lint:fix": "biome check . --write"
+	},
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"devDependencies": {
+		"@biomejs/biome": "2.4.9",
+		"@types/bun": "latest",
+		"turbo": "^2.8.20",
+		"typescript": "^6.0.2"
+	}
+}
