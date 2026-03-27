@@ -1,0 +1,4 @@
+[install]
+# disable isolated deps because of Expo & monorepo issues
+# https://docs.expo.dev/guides/monorepos/#package-managers-with-isolated-dependencies
+linker = "hoisted"
