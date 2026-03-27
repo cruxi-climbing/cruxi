@@ -1,8 +1,8 @@
 {
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
-		"source.organizeImports": "explicit",
-		"source.sortMembers": "explicit"
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.biome": "explicit"
 	},
 	"conventionalCommits.scopes": ["mobile", "bun", "typescript-config"]
 }
