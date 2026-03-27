@@ -1,0 +1,20 @@
+{
+	"name": "@cruxi/api",
+	"version": "1.0.0",
+	"exports": {
+		".": "./router.type.ts"
+	},
+	"scripts": {
+		"dev": "bun --watch index.ts",
+		"check-types": "tsc --noEmit"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@types/node": "^25.5.0"
+	},
+	"dependencies": {
+		"@orpc/client": "^1.13.13",
+		"@orpc/server": "^1.13.13",
+		"zod": "^4.3.6"
+	}
+}
