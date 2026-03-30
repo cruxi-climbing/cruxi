@@ -1,0 +1,11 @@
+services:
+  database:
+    image: postgis/postgis
+    build:
+      context: https://github.com/postgis/docker-postgis.git#master:18-3.6
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: cruxi
+    ports:
+      - "5432:5432"
