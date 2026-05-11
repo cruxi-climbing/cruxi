@@ -1,0 +1,23 @@
+{
+  "name": "@cruxi/scraper",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "@inquirer/prompts": "^8.4.2",
+    "@libsql/client": "^0.17.3",
+    "cli-progress": "^3.12.0",
+    "drizzle-orm": "^0.45.2",
+    "playwright": "^1.59.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/cli-progress": "^3.11.6",
+    "@types/node": "^25.6.0",
+    "drizzle-kit": "^0.31.10"
+  }
+}
