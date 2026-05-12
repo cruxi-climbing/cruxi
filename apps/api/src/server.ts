@@ -1,6 +1,7 @@
 import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { CORSPlugin } from "@orpc/server/plugins";
+import { auth } from "@/auth";
 import { router } from "./router";
 
 const handler = new RPCHandler(router, {
@@ -19,6 +20,12 @@ export function createServer({ port }: { port?: number } = {}) {
 
 	const server = Bun.serve({
 		port: port ?? envPort,
+		routes: {
+			"/api/auth/*": (request) => {
+				return auth.handler(request);
+			},
+		},
+
 		async fetch(request) {
 			const { matched, response } = await handler.handle(request, {
 				prefix: "/rpc",
