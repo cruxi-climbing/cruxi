@@ -16,6 +16,40 @@ export const auth = betterAuth({
 			verifications,
 		},
 	}),
+	user: {
+		additionalFields: {
+			biography: {
+				type: "string",
+				required: false,
+				defaultValue: null,
+				input: true,
+			},
+			height: {
+				type: "number",
+				required: false,
+				defaultValue: null,
+				input: true,
+			},
+			wingspan: {
+				type: "number",
+				required: false,
+				defaultValue: null,
+				input: true,
+			},
+			birthday: {
+				type: "string",
+				required: false,
+				defaultValue: null,
+				input: true,
+			},
+			startedClimbingAt: {
+				type: "string",
+				required: false,
+				defaultValue: null,
+				input: true,
+			},
+		},
+	},
 	emailAndPassword: {
 		enabled: true,
 	},

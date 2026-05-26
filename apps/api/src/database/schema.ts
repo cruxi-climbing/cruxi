@@ -3,6 +3,7 @@ import {
 	boolean,
 	geometry,
 	index,
+	integer,
 	pgTable,
 	serial,
 	text,
@@ -19,6 +20,11 @@ export const users = pgTable("users", {
 	updatedAt: timestamp("updated_at")
 		.$onUpdate(() => new Date())
 		.notNull(),
+	biography: text("biography"),
+	height: integer("height"),
+	wingspan: integer("wingspan"),
+	birthday: text("birthday"),
+	startedClimbingAt: timestamp("started_climbing_at"),
 });
 
 export const sessions = pgTable(
