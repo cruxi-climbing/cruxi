@@ -1,17 +1,17 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
 	boolean,
 	geometry,
 	index,
 	integer,
 	pgTable,
-	serial,
 	text,
 	timestamp,
+	uuid,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-	id: text("id").primaryKey(),
+	id: uuid("id").primaryKey().default(sql`uuidv7()`),
 	name: text("name").notNull(),
 	email: text("email").notNull().unique(),
 	emailVerified: boolean("email_verified").default(false).notNull(),
@@ -30,7 +30,7 @@ export const users = pgTable("users", {
 export const sessions = pgTable(
 	"sessions",
 	{
-		id: text("id").primaryKey(),
+		id: uuid("id").primaryKey().default(sql`uuidv7()`),
 		expiresAt: timestamp("expires_at").notNull(),
 		token: text("token").notNull().unique(),
 		createdAt: timestamp("created_at").notNull(),
@@ -49,7 +49,7 @@ export const sessions = pgTable(
 export const accounts = pgTable(
 	"accounts",
 	{
-		id: text("id").primaryKey(),
+		id: uuid("id").primaryKey().default(sql`uuidv7()`),
 		accountId: text("account_id").notNull(),
 		providerId: text("provider_id").notNull(),
 		userId: text("user_id")
@@ -73,7 +73,7 @@ export const accounts = pgTable(
 export const verifications = pgTable(
 	"verifications",
 	{
-		id: text("id").primaryKey(),
+		id: uuid("id").primaryKey().default(sql`uuidv7()`),
 		identifier: text("identifier").notNull(),
 		value: text("value").notNull(),
 		expiresAt: timestamp("expires_at").notNull(),
@@ -108,7 +108,7 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 export const stores = pgTable(
 	"stores",
 	{
-		id: serial("id").primaryKey(),
+		id: uuid("id").primaryKey().default(sql`uuidv7()`),
 		name: text("name").notNull(),
 		location: geometry("location", {
 			type: "point",
