@@ -19,13 +19,6 @@ export async function createServer({ port }: { port?: number } = {}) {
 		? Number.parseInt(process.env.PORT, 10)
 		: 3000;
 
-	try {
-		await addReferenceData();
-	} catch (error) {
-		console.error("Failed to add reference data:", error);
-		// don't throw error, we want the server to start even if adding reference data fails
-	}
-
 	const server = Bun.serve({
 		port: port ?? envPort,
 		routes: {
