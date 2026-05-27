@@ -2,7 +2,6 @@ import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { CORSPlugin } from "@orpc/server/plugins";
 import { auth } from "@/auth";
-import { addReferenceData } from "./database";
 import { router } from "./router";
 
 const handler = new RPCHandler(router, {
