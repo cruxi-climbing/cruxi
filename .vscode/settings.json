@@ -4,5 +4,11 @@
 		"source.organizeImports.biome": "explicit",
 		"source.fixAll.biome": "explicit"
 	},
-	"conventionalCommits.scopes": ["mobile", "bun", "api", "database"]
+	"conventionalCommits.scopes": [
+		"mobile",
+		"bun",
+		"api",
+		"database",
+		"local-dev"
+	]
 }
