@@ -116,8 +116,39 @@ export const gradeNotations = pgTable(
 	],
 );
 
+export const areas = pgTable("areas", {
+	id: primaryKeyUuidV7(),
+	name: varchar("name", { length: 255 }).notNull(),
+	description: text("description"),
+	city: varchar("city", { length: 255 }),
+	country: varchar("country", { length: 255 }),
+});
+
+export const sectors = pgTable("sectors", {
+	id: primaryKeyUuidV7(),
+	name: varchar("name", { length: 255 }).notNull(),
+	description: text("description"),
+	areaId: uuid("area_id")
+		.notNull()
+		.references(() => areas.id),
+});
+
+export const routes = pgTable("routes", {
+	id: primaryKeyUuidV7(),
+	name: varchar("name", { length: 255 }).notNull(),
+	description: text("description"),
+	grade_index: integer("grade_index")
+		.notNull()
+		.references(() => gradeIndices.index),
+	height: integer("height"),
+	sectorId: uuid("sector_id")
+		.notNull()
+		.references(() => sectors.id),
+});
+
 export const gradeIndicesRelations = relations(gradeIndices, ({ many }) => ({
 	notations: many(gradeNotations),
+	routes: many(routes),
 }));
 
 export const gradeSystemsRelations = relations(gradeSystems, ({ many }) => ({
@@ -150,6 +181,23 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 	users: one(users, {
 		fields: [accounts.userId],
 		references: [users.id],
+	}),
+}));
+
+export const areasRelations = relations(areas, ({ many }) => ({
+	sectors: many(sectors),
+}));
+
+export const sectorsRelations = relations(sectors, ({ one, many }) => ({
+	area: one(areas, { fields: [sectors.areaId], references: [areas.id] }),
+	routes: many(routes),
+}));
+
+export const routesRelations = relations(routes, ({ one }) => ({
+	sector: one(sectors, { fields: [routes.sectorId], references: [sectors.id] }),
+	gradeIndex: one(gradeIndices, {
+		fields: [routes.grade_index],
+		references: [gradeIndices.index],
 	}),
 }));
 
