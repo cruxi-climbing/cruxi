@@ -6,9 +6,11 @@ import {
 	index,
 	integer,
 	pgTable,
+	primaryKey,
 	text,
 	timestamp,
 	uuid,
+	varchar,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -86,6 +88,49 @@ export const verifications = pgTable(
 	(table) => [index("verifications_identifier_idx").on(table.identifier)],
 );
 
+export const gradeIndices = pgTable("grade_indices", {
+	index: integer("index").primaryKey(),
+});
+
+export const gradeSystems = pgTable("grade_systems", {
+	id: uuid("id").primaryKey().default(sql`uuidv7()`),
+	name: varchar("name", { length: 255 }).notNull(),
+});
+
+export const gradeNotations = pgTable(
+	"grade_notations",
+	{
+		gradeIndexId: integer("grade_index_id")
+			.notNull()
+			.references(() => gradeIndices.index),
+		gradeSystemId: uuid("grade_system_id")
+			.notNull()
+			.references(() => gradeSystems.id),
+		notation: varchar("notation", { length: 50 }).notNull(),
+	},
+	(table) => [
+		primaryKey({ columns: [table.gradeIndexId, table.gradeSystemId] }),
+	],
+);
+
+export const gradeIndicesRelations = relations(gradeIndices, ({ many }) => ({
+	notations: many(gradeNotations),
+}));
+
+export const gradeSystemsRelations = relations(gradeSystems, ({ many }) => ({
+	notations: many(gradeNotations),
+}));
+
+export const gradeNotationsRelations = relations(gradeNotations, ({ one }) => ({
+	gradeIndex: one(gradeIndices, {
+		fields: [gradeNotations.gradeIndexId],
+		references: [gradeIndices.index],
+	}),
+	gradeSystem: one(gradeSystems, {
+		fields: [gradeNotations.gradeSystemId],
+		references: [gradeSystems.id],
+	}),
+}));
 export const usersRelations = relations(users, ({ many }) => ({
 	sessions: many(sessions),
 	accounts: many(accounts),
