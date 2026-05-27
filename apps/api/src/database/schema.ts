@@ -26,6 +26,10 @@ export const users = pgTable("users", {
 	updatedAt: timestamp("updated_at")
 		.$onUpdate(() => new Date())
 		.notNull(),
+	role: text("role"),
+	banned: boolean("banned").default(false),
+	banReason: text("ban_reason"),
+	banExpires: timestamp("ban_expires"),
 	biography: text("biography"),
 	height: integer("height"),
 	wingspan: integer("wingspan"),
