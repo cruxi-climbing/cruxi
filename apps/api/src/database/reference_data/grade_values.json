@@ -1,0 +1,182 @@
+[
+	{
+		"grade_index_id": 10,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "1"
+	},
+	{
+		"grade_index_id": 20,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "1+"
+	},
+	{
+		"grade_index_id": 30,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "2"
+	},
+	{
+		"grade_index_id": 40,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "2+"
+	},
+	{
+		"grade_index_id": 50,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "3"
+	},
+	{
+		"grade_index_id": 60,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "3+"
+	},
+	{
+		"grade_index_id": 70,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "4"
+	},
+	{
+		"grade_index_id": 80,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "4+"
+	},
+	{
+		"grade_index_id": 90,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "5a"
+	},
+	{
+		"grade_index_id": 100,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "5b"
+	},
+	{
+		"grade_index_id": 110,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "5c"
+	},
+	{
+		"grade_index_id": 120,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "6a"
+	},
+	{
+		"grade_index_id": 130,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "6a+"
+	},
+	{
+		"grade_index_id": 140,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "6b"
+	},
+	{
+		"grade_index_id": 150,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "6b+"
+	},
+	{
+		"grade_index_id": 160,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "6c"
+	},
+	{
+		"grade_index_id": 170,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "6c+"
+	},
+	{
+		"grade_index_id": 180,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "7a"
+	},
+	{
+		"grade_index_id": 190,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "7a+"
+	},
+	{
+		"grade_index_id": 200,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "7b"
+	},
+	{
+		"grade_index_id": 210,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "7b+"
+	},
+	{
+		"grade_index_id": 220,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "7c"
+	},
+	{
+		"grade_index_id": 230,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "7c+"
+	},
+	{
+		"grade_index_id": 240,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "8a"
+	},
+	{
+		"grade_index_id": 250,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "8a+"
+	},
+	{
+		"grade_index_id": 260,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "8b"
+	},
+	{
+		"grade_index_id": 270,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "8b+"
+	},
+	{
+		"grade_index_id": 280,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "8c"
+	},
+	{
+		"grade_index_id": 290,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "8c+"
+	},
+	{
+		"grade_index_id": 300,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "9a"
+	},
+	{
+		"grade_index_id": 310,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "9a+"
+	},
+	{
+		"grade_index_id": 320,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "9b"
+	},
+	{
+		"grade_index_id": 330,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "9b+"
+	},
+	{
+		"grade_index_id": 340,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "9c"
+	},
+	{
+		"grade_index_id": 350,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "9c+"
+	},
+	{
+		"grade_index_id": 360,
+		"grade_system_id": "019e69ac-0966-794e-8049-3e516673cba8",
+		"notation": "10a"
+	}
+]
