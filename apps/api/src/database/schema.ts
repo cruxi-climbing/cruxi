@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import {
 	boolean,
+	date,
 	geometry,
 	index,
 	integer,
@@ -23,8 +24,8 @@ export const users = pgTable("users", {
 	biography: text("biography"),
 	height: integer("height"),
 	wingspan: integer("wingspan"),
-	birthday: text("birthday"),
-	startedClimbingAt: timestamp("started_climbing_at"),
+	birthday: date("birthday"),
+	startedClimbingAt: date("started_climbing_at"),
 });
 
 export const sessions = pgTable(
