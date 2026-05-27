@@ -137,7 +137,7 @@ export const routes = pgTable("routes", {
 	id: primaryKeyUuidV7(),
 	name: varchar("name", { length: 255 }).notNull(),
 	description: text("description"),
-	grade_index: integer("grade_index")
+	gradeIndex: integer("grade_index")
 		.notNull()
 		.references(() => gradeIndices.index),
 	height: integer("height"),
@@ -196,7 +196,7 @@ export const sectorsRelations = relations(sectors, ({ one, many }) => ({
 export const routesRelations = relations(routes, ({ one }) => ({
 	sector: one(sectors, { fields: [routes.sectorId], references: [sectors.id] }),
 	gradeIndex: one(gradeIndices, {
-		fields: [routes.grade_index],
+		fields: [routes.gradeIndex],
 		references: [gradeIndices.index],
 	}),
 }));
