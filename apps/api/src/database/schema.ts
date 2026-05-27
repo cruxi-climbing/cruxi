@@ -1,12 +1,13 @@
 import { relations, sql } from "drizzle-orm";
 import {
 	boolean,
+	check,
 	date,
 	geometry,
 	index,
-	integer,
 	pgTable,
 	primaryKey,
+	smallint,
 	text,
 	timestamp,
 	uuid,
@@ -16,26 +17,33 @@ import {
 const primaryKeyUuidV7 = (column = "id") =>
 	uuid(column).primaryKey().default(sql`uuidv7()`);
 
-export const users = pgTable("users", {
-	id: primaryKeyUuidV7(),
-	name: text("name").notNull(),
-	email: text("email").notNull().unique(),
-	emailVerified: boolean("email_verified").default(false).notNull(),
-	image: text("image"),
-	createdAt: timestamp("created_at").notNull(),
-	updatedAt: timestamp("updated_at")
-		.$onUpdate(() => new Date())
-		.notNull(),
-	role: text("role"),
-	banned: boolean("banned").default(false),
-	banReason: text("ban_reason"),
-	banExpires: timestamp("ban_expires"),
-	biography: text("biography"),
-	height: integer("height"),
-	wingspan: integer("wingspan"),
-	birthday: date("birthday"),
-	startedClimbingAt: date("started_climbing_at"),
-});
+export const users = pgTable(
+	"users",
+	{
+		id: primaryKeyUuidV7(),
+		name: text("name").notNull(),
+		email: text("email").notNull().unique(),
+		emailVerified: boolean("email_verified").default(false).notNull(),
+		image: text("image"),
+		createdAt: timestamp("created_at").notNull(),
+		updatedAt: timestamp("updated_at")
+			.$onUpdate(() => new Date())
+			.notNull(),
+		role: text("role"),
+		banned: boolean("banned").default(false),
+		banReason: text("ban_reason"),
+		banExpires: timestamp("ban_expires"),
+		biography: text("biography"),
+		height: smallint("height"), // centimeters
+		wingspan: smallint("wingspan"), // centimeters
+		birthday: date("birthday"),
+		startedClimbingAt: date("started_climbing_at"),
+	},
+	(table) => [
+		check("height_check", sql`${table.height} > 0`),
+		check("wingspan_check", sql`${table.wingspan} > 0`),
+	],
+);
 
 export const sessions = pgTable(
 	"sessions",
@@ -96,7 +104,7 @@ export const verifications = pgTable(
 );
 
 export const gradeIndices = pgTable("grade_indices", {
-	index: integer("index").primaryKey(),
+	index: smallint("index").primaryKey(),
 });
 
 export const gradeSystems = pgTable("grade_systems", {
@@ -107,7 +115,7 @@ export const gradeSystems = pgTable("grade_systems", {
 export const gradeNotations = pgTable(
 	"grade_notations",
 	{
-		gradeIndexId: integer("grade_index_id")
+		gradeIndexId: smallint("grade_index_id")
 			.notNull()
 			.references(() => gradeIndices.index),
 		gradeSystemId: uuid("grade_system_id")
@@ -137,18 +145,23 @@ export const sectors = pgTable("sectors", {
 		.references(() => areas.id),
 });
 
-export const routes = pgTable("routes", {
-	id: primaryKeyUuidV7(),
-	name: varchar("name", { length: 255 }).notNull(),
-	description: text("description"),
-	gradeIndex: integer("grade_index")
-		.notNull()
-		.references(() => gradeIndices.index),
-	height: integer("height"),
-	sectorId: uuid("sector_id")
-		.notNull()
-		.references(() => sectors.id),
-});
+export const routes = pgTable(
+	"routes",
+	{
+		id: primaryKeyUuidV7(),
+		name: varchar("name", { length: 255 }).notNull(),
+		description: text("description"),
+		gradeIndex: smallint("grade_index")
+			.notNull()
+			.references(() => gradeIndices.index),
+		height: smallint("height"), // centimeters
+		sectorId: uuid("sector_id")
+			.notNull()
+			.references(() => sectors.id),
+	},
+
+	(table) => [check("height_check", sql`${table.height} > 0`)],
+);
 
 export const gradeIndicesRelations = relations(gradeIndices, ({ many }) => ({
 	notations: many(gradeNotations),
