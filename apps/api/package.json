@@ -6,7 +6,13 @@
 	},
 	"scripts": {
 		"dev": "bun --watch index.ts",
-		"check-types": "tsc --noEmit"
+		"check-types": "tsc --noEmit",
+		"db:push": "drizzle-kit push",
+		"db:studio": "drizzle-kit studio",
+		"db:migrate": "drizzle-kit migrate",
+		"db:seed": "bun ./src/database/seed.ts",
+		"db:dev": "bun run db:push && bun run db:seed",
+		"db:recreate": "docker compose down -v && docker compose up -d --wait && bun run db:dev"
 	},
 	"devDependencies": {
 		"@types/bun": "^1.3.11",
