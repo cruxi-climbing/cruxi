@@ -1,6 +1,7 @@
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { admin } from "better-auth/plugins";
 import { database } from "@/database";
 import { accounts, sessions, users, verifications } from "@/database/schema";
 
@@ -75,5 +76,5 @@ export const auth = betterAuth({
 			generateId: false,
 		},
 	},
-	plugins: [expo()],
+	plugins: [expo(), admin()],
 });
