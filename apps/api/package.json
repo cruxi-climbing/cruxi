@@ -2,7 +2,7 @@
 	"name": "@cruxi/api",
 	"version": "1.0.0",
 	"exports": {
-		".": "./router.type.ts"
+		".": "./client.type.ts"
 	},
 	"scripts": {
 		"dev": "bun --watch index.ts",
