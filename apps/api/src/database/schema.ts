@@ -5,6 +5,8 @@ import {
 	date,
 	geometry,
 	index,
+	numeric,
+	pgEnum,
 	pgTable,
 	primaryKey,
 	smallint,
@@ -163,9 +165,71 @@ export const routes = pgTable(
 	(table) => [check("height_check", sql`${table.height} > 0`)],
 );
 
+export const userProjects = pgTable("user_projects", {
+	id: primaryKeyUuidV7(),
+	userId: uuid("user_id")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+	routeId: uuid("route_id")
+		.notNull()
+		.references(() => routes.id, { onDelete: "cascade" }),
+	createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const climbingSessions = pgTable("climbing_sessions", {
+	id: primaryKeyUuidV7(),
+	userId: uuid("user_id")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+	routeId: uuid("route_id")
+		.notNull()
+		.references(() => routes.id, { onDelete: "cascade" }),
+	sessionDate: date("session_date").notNull(),
+	comment: text("comment"),
+	createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const ascentStyleEnum = pgEnum("ascent_style", [
+	"onsight",
+	"flash",
+	"redpoint",
+	"top_rope",
+	"send",
+]);
+
+export const ascents = pgTable(
+	"ascents",
+	{
+		id: primaryKeyUuidV7(),
+		userId: uuid("user_id")
+			.notNull()
+			.references(() => users.id, { onDelete: "cascade" }),
+		routeId: uuid("route_id")
+			.notNull()
+			.references(() => routes.id, { onDelete: "cascade" }),
+		sentAt: date("sent_at").notNull(),
+		rating: numeric("rating", { precision: 3, scale: 2 }),
+		ascentStyle: ascentStyleEnum("ascent_style").default("send").notNull(),
+		proposedGradeIndex: smallint("proposed_grade_index").references(
+			() => gradeIndices.index,
+			{ onDelete: "cascade", onUpdate: "cascade" },
+		),
+		comment: text("comment"),
+		createdAt: timestamp("created_at").notNull().defaultNow(),
+		updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+	},
+	(table) => [
+		check(
+			"rating_limit_and_step",
+			sql`${table.rating} >= 0 AND ${table.rating} <= 5 AND (${table.rating} * 4) % 1 = 0`,
+		),
+	],
+);
+
 export const gradeIndicesRelations = relations(gradeIndices, ({ many }) => ({
 	notations: many(gradeNotations),
 	routes: many(routes),
+	ascents: many(ascents),
 }));
 
 export const gradeSystemsRelations = relations(gradeSystems, ({ many }) => ({
@@ -210,10 +274,53 @@ export const sectorsRelations = relations(sectors, ({ one, many }) => ({
 	routes: many(routes),
 }));
 
-export const routesRelations = relations(routes, ({ one }) => ({
+export const routesRelations = relations(routes, ({ many, one }) => ({
 	sector: one(sectors, { fields: [routes.sectorId], references: [sectors.id] }),
-	gradeIndex: one(gradeIndices, {
+	grade: one(gradeIndices, {
 		fields: [routes.gradeIndex],
+		references: [gradeIndices.index],
+	}),
+	ascents: many(ascents),
+	userProjects: many(userProjects),
+	climbingSessions: many(climbingSessions),
+}));
+
+export const userProjectsRelations = relations(userProjects, ({ one }) => ({
+	user: one(users, {
+		fields: [userProjects.userId],
+		references: [users.id],
+	}),
+	route: one(routes, {
+		fields: [userProjects.routeId],
+		references: [routes.id],
+	}),
+}));
+
+export const climbingSessionsRelations = relations(
+	climbingSessions,
+	({ one }) => ({
+		user: one(users, {
+			fields: [climbingSessions.userId],
+			references: [users.id],
+		}),
+		route: one(routes, {
+			fields: [climbingSessions.routeId],
+			references: [routes.id],
+		}),
+	}),
+);
+
+export const ascentsRelations = relations(ascents, ({ one }) => ({
+	user: one(users, {
+		fields: [ascents.userId],
+		references: [users.id],
+	}),
+	route: one(routes, {
+		fields: [ascents.routeId],
+		references: [routes.id],
+	}),
+	grade: one(gradeIndices, {
+		fields: [ascents.proposedGradeIndex],
 		references: [gradeIndices.index],
 	}),
 }));
