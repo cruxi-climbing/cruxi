@@ -2,6 +2,7 @@ import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { CORSPlugin } from "@orpc/server/plugins";
 import { auth } from "@/auth";
+import { database } from "./database";
 import { router } from "./router";
 
 const handler = new RPCHandler(router, {
@@ -29,7 +30,7 @@ export async function createServer({ port }: { port?: number } = {}) {
 		async fetch(request) {
 			const { matched, response } = await handler.handle(request, {
 				prefix: "/rpc",
-				context: { headers: request.headers },
+				context: { headers: request.headers, database: database },
 			});
 
 			if (matched) {
