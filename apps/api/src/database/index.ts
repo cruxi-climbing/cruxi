@@ -7,6 +7,7 @@ if (!connectionUrl)
 	throw new Error("DATABASE_URL environment variable is not set");
 
 export const database = drizzle(connectionUrl, { schema: schema });
+export type Database = typeof database;
 
 export async function addReferenceData() {
 	try {
