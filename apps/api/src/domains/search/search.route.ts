@@ -1,8 +1,8 @@
 import z from "zod";
-import { orpc } from "@/orpc";
+import { authOrpc } from "@/orpc/authorized.orpc";
 import { createSearchService } from "./search.service";
 
-export const searchRoute = orpc
+export const searchRoute = authOrpc
 	.input(
 		z.object({
 			search: z.string().trim().min(2).max(100),
