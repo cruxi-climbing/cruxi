@@ -1,4 +1,4 @@
-import type { RouterClient } from "@cruxi/api";
+import type { ApiClient } from "@cruxi/api";
 import { createORPCClient } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
@@ -10,6 +10,6 @@ const link = new RPCLink({
 	}),
 });
 
-const client: RouterClient = createORPCClient(link);
+const client: ApiClient = createORPCClient(link);
 
 export const orpc = createTanstackQueryUtils(client);
