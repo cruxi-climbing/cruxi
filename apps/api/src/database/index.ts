@@ -38,13 +38,11 @@ export async function addReferenceData() {
 		// Insert grade indices
 		if (gradeIndicesData.length > 0) {
 			await database.insert(schema.gradeIndices).values(gradeIndicesData);
-			console.log(`Inserted ${gradeIndicesData.length} grade indices`);
 		}
 
 		// Insert grade systems
 		if (gradeSystemsData.length > 0) {
 			await database.insert(schema.gradeSystems).values(gradeSystemsData);
-			console.log(`Inserted ${gradeSystemsData.length} grade systems`);
 		}
 
 		if (gradeValuesData.length > 0) {
@@ -55,10 +53,7 @@ export async function addReferenceData() {
 			}));
 
 			await database.insert(schema.gradeNotations).values(notationsData);
-			console.log(`Inserted ${notationsData.length} grade notations`);
 		}
-
-		console.log("Reference data successfully added to the database");
 	} catch (error) {
 		console.error(
 			"Error adding reference data:",
