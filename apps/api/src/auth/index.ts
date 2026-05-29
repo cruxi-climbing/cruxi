@@ -6,6 +6,7 @@ import { database } from "@/database";
 import { accounts, sessions, users, verifications } from "@/database/schema";
 
 export const auth = betterAuth({
+	appName: "Cruxi",
 	baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
 	database: drizzleAdapter(database, {
 		provider: "pg",
@@ -72,6 +73,7 @@ export const auth = betterAuth({
 		database: {
 			generateId: false,
 		},
+		cookiePrefix: "cruxi",
 	},
 	plugins: [expo(), admin()],
 });
