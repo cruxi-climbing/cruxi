@@ -55,10 +55,7 @@ export const auth = betterAuth({
 		enabled: true,
 	},
 	socialProviders: {
-		google: {
-			clientId: process.env.GOOGLE_CLIENT_ID as string,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-		},
+		google: googleProvider(),
 	},
 	trustedOrigins: [
 		"cruxi://*",
@@ -78,3 +75,12 @@ export const auth = betterAuth({
 	},
 	plugins: [expo(), admin()],
 });
+
+function googleProvider() {
+	if (process.env.GOOGLE_PROVIDER_ENABLED !== "true") return;
+
+	return {
+		clientId: process.env.GOOGLE_CLIENT_ID as string,
+		clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+	};
+}
