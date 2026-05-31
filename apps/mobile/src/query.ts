@@ -1,4 +1,4 @@
-import type { ApiClient } from "@cruxi/api";
+import type { ContractClient } from "@cruxi/contract";
 import { createORPCClient } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { SimpleCsrfProtectionLinkPlugin } from "@orpc/client/plugins";
@@ -16,6 +16,6 @@ const link = new RPCLink({
 	plugins: [new SimpleCsrfProtectionLinkPlugin()],
 });
 
-const client: ApiClient = createORPCClient(link);
+const client: ContractClient = createORPCClient(link);
 
 export const orpc = createTanstackQueryUtils(client);

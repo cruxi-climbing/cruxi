@@ -12,6 +12,7 @@
 		"check-types": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@cruxi/contract": "workspace:*",
 		"@better-auth/expo": "^1.6.10",
 		"@orpc/client": "^1.13.13",
 		"@orpc/tanstack-query": "^1.13.13",

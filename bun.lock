@@ -38,6 +38,7 @@
       "version": "1.0.0",
       "dependencies": {
         "@better-auth/expo": "^1.6.10",
+        "@cruxi/contract": "workspace:*",
         "@orpc/client": "^1.13.13",
         "@orpc/tanstack-query": "^1.13.13",
         "@react-navigation/bottom-tabs": "^7.15.5",
