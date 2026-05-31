@@ -17,6 +17,7 @@
       "dependencies": {
         "@better-auth/drizzle-adapter": "^1.6.11",
         "@better-auth/expo": "^1.6.11",
+        "@cruxi/contract": "workspace:*",
         "@orpc/client": "^1.14.3",
         "@orpc/server": "^1.14.3",
         "better-auth": "^1.6.11",

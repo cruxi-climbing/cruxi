@@ -1,9 +1,6 @@
 {
 	"name": "@cruxi/api",
 	"version": "1.0.0",
-	"exports": {
-		".": "./client.type.ts"
-	},
 	"scripts": {
 		"dev": "bun --watch index.ts",
 		"check-types": "tsc --noEmit",
@@ -21,6 +18,7 @@
 		"drizzle-kit": "^0.31.10"
 	},
 	"dependencies": {
+		"@cruxi/contract": "workspace:*",
 		"@better-auth/drizzle-adapter": "^1.6.11",
 		"@better-auth/expo": "^1.6.11",
 		"@orpc/client": "^1.14.3",
