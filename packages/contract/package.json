@@ -1,0 +1,13 @@
+{
+	"name": "@cruxi/contract",
+	"module": "index.ts",
+	"type": "module",
+	"exports": "./index.ts",
+	"scripts": {
+		"check-types": "tsc -b"
+	},
+	"dependencies": {
+		"@orpc/contract": "^1.14.4",
+		"zod": "^4.4.3"
+	}
+}

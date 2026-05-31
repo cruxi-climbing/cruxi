@@ -75,6 +75,13 @@
         "typescript": "~5.9.2",
       },
     },
+    "packages/contract": {
+      "name": "@cruxi/contract",
+      "dependencies": {
+        "@orpc/contract": "^1.14.4",
+        "zod": "^4.4.3",
+      },
+    },
   },
   "packages": {
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
@@ -302,6 +309,8 @@
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.4.9", "", { "os": "win32", "cpu": "x64" }, "sha512-NS4g/2G9SoQ4ktKtz31pvyc/rmgzlcIDCGU/zWbmHJAqx6gcRj2gj5Q/guXhoWTzCUaQZDIqiCQXHS7BcGYc0w=="],
 
     "@cruxi/api": ["@cruxi/api@workspace:apps/api"],
+
+    "@cruxi/contract": ["@cruxi/contract@workspace:packages/contract"],
 
     "@cruxi/mobile-app": ["@cruxi/mobile-app@workspace:apps/mobile"],
 

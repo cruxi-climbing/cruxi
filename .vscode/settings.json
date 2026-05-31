@@ -9,6 +9,7 @@
 		"bun",
 		"api",
 		"database",
-		"local-dev"
+		"local-dev",
+		"contract"
 	]
 }
