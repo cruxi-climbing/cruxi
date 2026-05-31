@@ -5,7 +5,8 @@
 	"packageManager": "bun@1.2.0",
 	"scripts": {
 		"dev": "turbo dev",
-		"check-types": "turbo check-types",
+		"type:check": "turbo type:check",
+		"verify": "bun run type:check && bun run lint",
 		"build": "turbo build",
 		"lint": "biome check .",
 		"lint:fix": "biome check . --write"

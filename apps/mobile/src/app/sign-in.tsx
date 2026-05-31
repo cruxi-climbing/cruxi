@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useState } from "react";
 import { Button, TextInput, View } from "react-native";
 import { authClient } from "@/auth-client";
@@ -13,6 +14,7 @@ export default function SignIn() {
 				password,
 			});
 			console.log("Login successful:", result);
+			router.navigate("/projects");
 		} catch (error) {
 			console.error("Login failed:", error);
 		}

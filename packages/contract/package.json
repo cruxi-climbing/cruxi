@@ -4,7 +4,7 @@
 	"type": "module",
 	"exports": "./index.ts",
 	"scripts": {
-		"check-types": "tsc -b"
+		"type:check": "tsc -b"
 	},
 	"dependencies": {
 		"@orpc/contract": "^1.14.4",
