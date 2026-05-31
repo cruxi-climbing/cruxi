@@ -19,7 +19,7 @@ describe("Search", () => {
 			{ context: { headers, database } },
 		);
 
-		const names = res.map((route: any) => route.name);
+		const names = res.map((route) => route.name);
 		expect(names).toEqual(
 			expect.arrayContaining(["Test Route A", "Best Test Route"]),
 		);
