@@ -9,6 +9,7 @@ export const authClient = createAuthClient({
 			scheme: "cruxi",
 			storagePrefix: "cruxi",
 			storage: SecureStore,
+			cookiePrefix: "cruxi",
 		}),
 	],
 });
