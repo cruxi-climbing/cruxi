@@ -18,11 +18,16 @@ main().catch((error) => {
 	process.exit(1);
 });
 
+const gradeIndices = gradeIndicesData.map((g) => g.index);
+
 async function main() {
 	await reset(database, schema);
 	await addReferenceData();
-	const gradeIndices = gradeIndicesData.map((g) => g.index);
-	await seedStaticUsers();
+	const staticUsersIds = await seedStaticUsers();
+	await seedRandomData({ userIds: staticUsersIds });
+}
+
+async function seedRandomData({ userIds }: { userIds: string[] }) {
 	await seed(database, {
 		users: users,
 		areas: areas,
@@ -74,8 +79,9 @@ async function main() {
 			},
 		},
 		ascents: {
-			count: 100_000,
+			count: 2000,
 			columns: {
+				userId: funcs.valuesFromArray({ values: userIds }),
 				rating: funcs.number({ minValue: 0, maxValue: 5, precision: 2 }),
 				comment: funcs.loremIpsum(),
 				proposedGradeIndex: funcs.weightedRandom([
@@ -88,11 +94,15 @@ async function main() {
 			},
 		},
 		userProjects: {
-			count: 10_000,
+			count: 1000,
+			columns: {
+				userId: funcs.valuesFromArray({ values: userIds }),
+			},
 		},
 		climbingSessions: {
-			count: 10_000,
+			count: 1000,
 			columns: {
+				userId: funcs.valuesFromArray({ values: userIds }),
 				comment: funcs.loremIpsum(),
 			},
 		},
@@ -133,10 +143,13 @@ async function seedStaticUsers() {
 	for (const userData of staticUsers) {
 		await auth.api.createUser({ body: userData });
 	}
-	const userIds = await database
+
+	const users = await database
 		.select({
 			id: schema.users.id,
 		})
 		.from(schema.users);
-	return userIds.map((u) => u.id);
+
+	const userIds = users.map((u) => u.id);
+	return userIds;
 }
