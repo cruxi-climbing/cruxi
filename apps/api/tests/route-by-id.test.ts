@@ -78,7 +78,7 @@ describe("Routes.byId", () => {
 		try {
 			await call(
 				router.routes.getById,
-				{ id: crypto.randomUUID() },
+				{ id: Bun.randomUUIDv7() },
 				{
 					context: { headers, database },
 				},

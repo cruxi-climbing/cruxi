@@ -17,7 +17,7 @@ describe("Users.me.projects", () => {
 		const route = await createRoute("Project Route A");
 
 		await database.insert(userProjects).values({
-			id: crypto.randomUUID(),
+			id: Bun.randomUUIDv7(),
 			userId: user.id,
 			routeId: route.id,
 		});
@@ -42,13 +42,13 @@ describe("Users.me.projects", () => {
 
 		await database.insert(userProjects).values([
 			{
-				id: crypto.randomUUID(),
+				id: Bun.randomUUIDv7(),
 				userId: user.id,
 				routeId: firstRoute.id,
 				createdAt: new Date("2024-01-01T00:00:00.000Z"),
 			},
 			{
-				id: crypto.randomUUID(),
+				id: Bun.randomUUIDv7(),
 				userId: user.id,
 				routeId: secondRoute.id,
 				createdAt: new Date("2024-02-01T00:00:00.000Z"),
@@ -71,7 +71,7 @@ describe("Users.me.projects", () => {
 		const route = await createRoute("Other User Route");
 
 		await database.insert(userProjects).values({
-			id: crypto.randomUUID(),
+			id: Bun.randomUUIDv7(),
 			userId: otherUser.id,
 			routeId: route.id,
 		});
@@ -88,9 +88,9 @@ async function createRoute(name: string) {
 	const [gradeIndex] = await database.select().from(gradeIndices).limit(1);
 	if (!gradeIndex) throw new Error("Expected reference grade index to exist");
 
-	const areaId = crypto.randomUUID();
-	const sectorId = crypto.randomUUID();
-	const routeId = crypto.randomUUID();
+	const areaId = Bun.randomUUIDv7();
+	const sectorId = Bun.randomUUIDv7();
+	const routeId = Bun.randomUUIDv7();
 
 	await database.insert(areas).values({ id: areaId, name: "Test Area" });
 	await database.insert(sectors).values({

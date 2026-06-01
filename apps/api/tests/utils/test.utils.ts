@@ -5,7 +5,7 @@ export async function createTestUser() {
 	const authTest = authCtx.test;
 
 	const user = authTest.createUser({
-		id: crypto.randomUUID(),
+		id: Bun.randomUUIDv7(),
 	});
 	const savedUser = await authTest.saveUser(user);
 	const loginResult = await authTest.login({ userId: savedUser.id });
