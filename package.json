@@ -4,6 +4,7 @@
 	"private": true,
 	"packageManager": "bun@1.2.0",
 	"scripts": {
+		"setup": "turbo setup",
 		"dev": "turbo dev",
 		"type:check": "turbo type:check",
 		"verify": "bun run type:check && bun run lint",

@@ -4,6 +4,7 @@
 	"scripts": {
 		"dev": "bun --watch index.ts",
 		"type:check": "tsc --noEmit",
+		"setup": "docker compose up -d --wait && bun run db:dev",
 		"db:push": "drizzle-kit push",
 		"db:studio": "drizzle-kit studio",
 		"db:migrate": "drizzle-kit migrate",
