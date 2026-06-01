@@ -12,8 +12,8 @@
 		"type:check": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@cruxi/contract": "workspace:*",
 		"@better-auth/expo": "^1.6.10",
+		"@cruxi/contract": "workspace:*",
 		"@orpc/client": "^1.13.13",
 		"@orpc/tanstack-query": "^1.13.13",
 		"@react-navigation/bottom-tabs": "^7.15.5",
@@ -23,6 +23,7 @@
 		"better-auth": "^1.6.10",
 		"expo": "~55.0.26",
 		"expo-constants": "^55.0.16",
+		"expo-dev-client": "~55.0.35",
 		"expo-device": "~55.0.17",
 		"expo-font": "~55.0.8",
 		"expo-glass-effect": "~55.0.11",
