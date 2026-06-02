@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { reset, seed } from "drizzle-seed";
 import { auth } from "@/auth";
 import { addReferenceData, database } from ".";
@@ -25,6 +26,16 @@ async function main() {
 	await addReferenceData();
 	const staticUsersIds = await seedStaticUsers();
 	await seedRandomData({ userIds: staticUsersIds });
+
+	const users = await database.select().from(schema.users);
+	const userIds = users.map((u) => u.id);
+
+	const routes = await database.select().from(schema.routes);
+	const routeIds = routes.map((r) => r.id);
+
+	// manually seeding those as they have composite unique constraints that drizzle-seed cannot handle for now
+	await seedAscents({ routeIds, userIds, count: 10_000 });
+	await seedUserProjects({ routeIds, userIds, count: 10_000 });
 }
 
 async function seedRandomData({ userIds }: { userIds: string[] }) {
@@ -33,13 +44,15 @@ async function seedRandomData({ userIds }: { userIds: string[] }) {
 		areas: areas,
 		sectors: sectors,
 		routes: routes,
-		ascents: ascents,
-		userProjects: userProjects,
 		climbingSessions: climbingSessions,
 	}).refine((funcs) => ({
 		users: {
-			count: 1000,
+			count: 100,
 			columns: {
+				id: funcs.valuesFromArray({
+					values: generateRandomUUIDV7(100),
+					isUnique: true,
+				}),
 				email: funcs.email(),
 				emailVerified: funcs.boolean(),
 				password: funcs.lastName(),
@@ -56,6 +69,10 @@ async function seedRandomData({ userIds }: { userIds: string[] }) {
 		areas: {
 			count: 100,
 			columns: {
+				id: funcs.valuesFromArray({
+					values: generateRandomUUIDV7(100),
+					isUnique: true,
+				}),
 				name: funcs.state(),
 				description: funcs.loremIpsum(),
 				city: funcs.city(),
@@ -65,6 +82,10 @@ async function seedRandomData({ userIds }: { userIds: string[] }) {
 		sectors: {
 			count: 500,
 			columns: {
+				id: funcs.valuesFromArray({
+					values: generateRandomUUIDV7(500),
+					isUnique: true,
+				}),
 				name: funcs.state(),
 				description: funcs.loremIpsum(),
 			},
@@ -72,36 +93,23 @@ async function seedRandomData({ userIds }: { userIds: string[] }) {
 		routes: {
 			count: 10_000,
 			columns: {
+				id: funcs.valuesFromArray({
+					values: generateRandomUUIDV7(10_000),
+					isUnique: true,
+				}),
 				name: funcs.lastName(),
 				description: funcs.loremIpsum(),
 				height: funcs.int({ minValue: 5, maxValue: 1000 }),
 				gradeIndex: funcs.valuesFromArray({ values: gradeIndices }),
 			},
 		},
-		ascents: {
-			count: 2000,
-			columns: {
-				userId: funcs.valuesFromArray({ values: userIds }),
-				rating: funcs.number({ minValue: 0, maxValue: 5, precision: 2 }),
-				comment: funcs.loremIpsum(),
-				proposedGradeIndex: funcs.weightedRandom([
-					{
-						weight: 0.5,
-						value: funcs.valuesFromArray({ values: gradeIndices }),
-					},
-					{ weight: 0.5, value: funcs.default({ defaultValue: null }) },
-				]),
-			},
-		},
-		userProjects: {
-			count: 1000,
-			columns: {
-				userId: funcs.valuesFromArray({ values: userIds }),
-			},
-		},
 		climbingSessions: {
 			count: 1000,
 			columns: {
+				id: funcs.valuesFromArray({
+					values: generateRandomUUIDV7(1000),
+					isUnique: true,
+				}),
 				userId: funcs.valuesFromArray({ values: userIds }),
 				comment: funcs.loremIpsum(),
 			},
@@ -152,4 +160,91 @@ async function seedStaticUsers() {
 
 	const userIds = users.map((u) => u.id);
 	return userIds;
+}
+
+async function seedUserProjects({
+	routeIds,
+	userIds,
+	count,
+}: {
+	routeIds: string[];
+	userIds: string[];
+	count: number;
+}) {
+	// pick a unique combination of userId and routeId for each project
+	const usedCombinations = new Set<string>();
+	while (usedCombinations.size < count) {
+		const randomUserId = pickRandom(userIds);
+		const randomRouteId = pickRandom(routeIds);
+		const combinationKey = `${randomUserId};${randomRouteId}`;
+		if (usedCombinations.has(combinationKey)) {
+			continue; // skip if this combination has already been used
+		}
+		usedCombinations.add(combinationKey);
+	}
+
+	for (const combination of usedCombinations) {
+		const [randomUserId, randomRouteId] = combination.split(";");
+		await database.insert(userProjects).values({
+			userId: randomUserId as string,
+			routeId: randomRouteId as string,
+			createdAt: faker.date.past({ years: 10 }),
+		});
+	}
+}
+
+async function seedAscents({
+	routeIds,
+	userIds,
+	count,
+}: {
+	routeIds: string[];
+	userIds: string[];
+	count: number;
+}) {
+	// pick a unique combination of userId and routeId for each ascent
+	const usedCombinations = new Set<string>();
+	while (usedCombinations.size < count) {
+		const randomUserId = pickRandom(userIds);
+		const randomRouteId = pickRandom(routeIds);
+		const combinationKey = `${randomUserId};${randomRouteId}`;
+		if (usedCombinations.has(combinationKey)) {
+			continue; // skip if this combination has already been used
+		}
+		usedCombinations.add(combinationKey);
+	}
+
+	for (const combination of usedCombinations) {
+		const ascentStyle = pickRandom(schema.ascentStyles as unknown as string[]);
+		const randomRating = Math.round(Math.random() * 5 * 4) / 4; // rating between 0 and 5 with 0.25 step
+
+		const [randomUserId, randomRouteId] = combination.split(";");
+		await database.insert(ascents).values({
+			userId: randomUserId as string,
+			routeId: randomRouteId as string,
+			ascentStyle: ascentStyle as schema.AscentStyle,
+			rating: randomRating.toString(),
+			comment: faker.lorem.sentences(),
+			sentAt: faker.date.past({ years: 10 }).toISOString(),
+			createdAt: faker.date.past({ years: 10 }),
+		});
+	}
+}
+
+/**
+ * Big workaround to generate uuidv7, as drizzle seed cannot generation custom value
+ * https://github.com/drizzle-team/drizzle-orm/issues/4056
+ */
+function generateRandomUUIDV7(count: number) {
+	const uuids: string[] = [];
+	for (let i = 0; i < count; i++) {
+		uuids.push(Bun.randomUUIDv7());
+	}
+	return uuids;
+}
+
+function pickRandom<T>(array: T[]): T {
+	const random = array[Math.floor(Math.random() * array.length)];
+	if (!random) throw new Error("Array is empty");
+	return random;
 }
