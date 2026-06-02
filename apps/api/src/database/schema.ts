@@ -12,6 +12,7 @@ import {
 	smallint,
 	text,
 	timestamp,
+	unique,
 	uuid,
 	varchar,
 } from "drizzle-orm/pg-core";
@@ -165,16 +166,19 @@ export const routes = pgTable(
 	(table) => [check("height_check", sql`${table.height} > 0`)],
 );
 
-export const userProjects = pgTable("user_projects", {
-	id: primaryKeyUuidV7(),
-	userId: uuid("user_id")
-		.notNull()
-		.references(() => users.id, { onDelete: "cascade" }),
-	routeId: uuid("route_id")
-		.notNull()
-		.references(() => routes.id, { onDelete: "cascade" }),
-	createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+export const userProjects = pgTable(
+	"user_projects",
+	{
+		userId: uuid("user_id")
+			.notNull()
+			.references(() => users.id, { onDelete: "cascade" }),
+		routeId: uuid("route_id")
+			.notNull()
+			.references(() => routes.id, { onDelete: "cascade" }),
+		createdAt: timestamp("created_at").notNull().defaultNow(),
+	},
+	(table) => [primaryKey({ columns: [table.userId, table.routeId] })],
+);
 
 export const climbingSessions = pgTable("climbing_sessions", {
 	id: primaryKeyUuidV7(),
@@ -189,13 +193,17 @@ export const climbingSessions = pgTable("climbing_sessions", {
 	createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const ascentStyleEnum = pgEnum("ascent_style", [
+export const ascentStyles = [
 	"onsight",
 	"flash",
 	"redpoint",
 	"top_rope",
 	"send",
-]);
+] as const;
+
+export type AscentStyle = (typeof ascentStyles)[number];
+
+export const ascentStyleEnum = pgEnum("ascent_style", ascentStyles);
 
 export const ascents = pgTable(
 	"ascents",
@@ -218,10 +226,11 @@ export const ascents = pgTable(
 		createdAt: timestamp("created_at").notNull().defaultNow(),
 		updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
 	},
-	(table) => [
+	(t) => [
+		unique().on(t.userId, t.routeId), // a user can only have one ascent per route
 		check(
 			"rating_limit_and_step",
-			sql`${table.rating} >= 0 AND ${table.rating} <= 5 AND (${table.rating} * 4) % 1 = 0`,
+			sql`${t.rating} >= 0 AND ${t.rating} <= 5 AND (${t.rating} * 4) % 1 = 0`,
 		),
 	],
 );
