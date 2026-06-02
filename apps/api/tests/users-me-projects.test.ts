@@ -17,7 +17,6 @@ describe("Users.me.projects", () => {
 		const route = await createRoute("Project Route A");
 
 		await database.insert(userProjects).values({
-			id: Bun.randomUUIDv7(),
 			userId: user.id,
 			routeId: route.id,
 		});
@@ -42,13 +41,11 @@ describe("Users.me.projects", () => {
 
 		await database.insert(userProjects).values([
 			{
-				id: Bun.randomUUIDv7(),
 				userId: user.id,
 				routeId: firstRoute.id,
 				createdAt: new Date("2024-01-01T00:00:00.000Z"),
 			},
 			{
-				id: Bun.randomUUIDv7(),
 				userId: user.id,
 				routeId: secondRoute.id,
 				createdAt: new Date("2024-02-01T00:00:00.000Z"),
@@ -71,7 +68,6 @@ describe("Users.me.projects", () => {
 		const route = await createRoute("Other User Route");
 
 		await database.insert(userProjects).values({
-			id: Bun.randomUUIDv7(),
 			userId: otherUser.id,
 			routeId: route.id,
 		});
