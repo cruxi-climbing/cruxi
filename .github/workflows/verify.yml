@@ -46,4 +46,4 @@ jobs:
         run: bun verify
 
       - name: Run tests
-        run: bun test
+        run: bun test --coverage
