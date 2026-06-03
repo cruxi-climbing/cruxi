@@ -44,6 +44,14 @@ const routeByIdContract = oc
 
 const usersMeProjectsContract = oc.output(z.array(projectSchema));
 
+const gradeIndexSchema = z.object({ index: z.number() });
+const gradeSystemSchema = z.object({ id: uuidSchema, name: z.string() });
+const gradeNotationSchema = z.object({
+	gradeIndexId: z.number(),
+	gradeSystemId: uuidSchema,
+	notation: z.string(),
+});
+
 export const contract = {
 	search: searchRouteContract,
 	routes: {
@@ -53,6 +61,18 @@ export const contract = {
 		me: {
 			projects: usersMeProjectsContract,
 		},
+	},
+	grades: {
+		indices: oc.output(z.array(gradeIndexSchema)),
+		systems: oc.output(z.array(gradeSystemSchema)),
+		notations: oc.output(z.array(gradeNotationSchema)),
+		all: oc.output(
+			z.object({
+				systems: z.array(gradeSystemSchema),
+				indices: z.array(gradeIndexSchema),
+				notations: z.array(gradeNotationSchema),
+			}),
+		),
 	},
 };
 
