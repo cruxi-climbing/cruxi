@@ -14,6 +14,7 @@ import { createTestUser } from "./utils/test.utils";
 describe("Routes.byId", () => {
 	it("returns route details with sector name and ascent count", async () => {
 		const { headers, user } = await createTestUser();
+		const { user: user2 } = await createTestUser();
 		const route = await createRoute("Test Route A");
 
 		await database.insert(ascents).values([
@@ -25,11 +26,11 @@ describe("Routes.byId", () => {
 				ascentStyle: "send",
 			},
 			{
-				userId: user.id,
+				userId: user2.id,
 				routeId: route.id,
-				sentAt: "2024-02-01",
-				rating: "3.75",
-				ascentStyle: "onsight",
+				sentAt: "2024-03-01",
+				rating: "4.0",
+				ascentStyle: "flash",
 			},
 		]);
 
@@ -45,7 +46,7 @@ describe("Routes.byId", () => {
 				name: "Test Route A",
 				sectorName: "Test Sector",
 				ascentsCount: 2,
-				avgRating: 4.125,
+				avgRating: 4.25,
 			}),
 		);
 	});
