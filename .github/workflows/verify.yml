@@ -9,6 +9,23 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:18-master
+        env:
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: cruxi
+        ports:
+          - 5432:5432
+        options: >
+          --health-cmd "pg_isready -U admin -d cruxi"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgres://admin:admin@localhost:5432/cruxi
 
     steps:
       - name: Checkout repository
@@ -24,3 +41,6 @@ jobs:
 
       - name: Run verify
         run: bun verify
+
+      - name: Run tests
+        run: bun test
