@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Set up database
+        run: bun db:setup
+
       - name: Run verify
         run: bun verify
 

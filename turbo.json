@@ -15,6 +15,9 @@
 		},
 		"setup": {
 			"dependsOn": ["^setup"]
+		},
+		"db:setup": {
+			"dependsOn": ["^db:setup"]
 		}
 	}
 }

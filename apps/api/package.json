@@ -9,6 +9,7 @@
 		"db:studio": "drizzle-kit studio",
 		"db:migrate": "drizzle-kit migrate",
 		"db:seed": "bun ./src/database/seed.ts",
+		"db:setup": "bun run db:migrate && bun run db:push",
 		"db:dev": "bun run db:migrate && bun run db:push && bun run db:seed",
 		"db:dev:reset": "docker compose down -v && docker compose up -d --wait && bun run db:dev"
 	},
