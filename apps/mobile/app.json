@@ -45,6 +45,13 @@
 		"experiments": {
 			"typedRoutes": true,
 			"reactCompiler": true
-		}
+		},
+		"extra": {
+			"router": {},
+			"eas": {
+				"projectId": "016c9130-c594-494a-9c13-53876a30b3c7"
+			}
+		},
+		"owner": "cruxi"
 	}
 }
