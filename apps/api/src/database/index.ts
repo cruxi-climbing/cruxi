@@ -2,9 +2,12 @@ import "dotenv/config";
 import { drizzle } from "drizzle-orm/bun-sql";
 import * as schema from "./schema";
 
-const connectionUrl = process.env.DATABASE_URL;
-if (!connectionUrl)
-	throw new Error("DATABASE_URL environment variable is not set");
+const fallbackDbUrl = "postgresql://admin:admin@localhost:5432/cruxi";
+const connectionUrl = process.env.DATABASE_URL || fallbackDbUrl;
+if (!process.env.DATABASE_URL)
+	console.warn(
+		`DATABASE_URL env variable not defined, fallback to ${fallbackDbUrl}`,
+	);
 
 export const database = drizzle(connectionUrl, { schema: schema });
 export type Database = typeof database;

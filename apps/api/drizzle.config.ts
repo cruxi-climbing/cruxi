@@ -1,15 +1,19 @@
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 
+const fallbackDbUrl = "postgresql://admin:admin@localhost:5432/cruxi";
+const databaseUrl = process.env.DATABASE_URL || fallbackDbUrl;
 if (!process.env.DATABASE_URL)
-	throw new Error("DATABASE_URL environment variable is not set");
+	console.warn(
+		`DATABASE_URL env variable not defined, fallback to ${fallbackDbUrl}`,
+	);
 
 export default defineConfig({
 	out: "./drizzle",
 	schema: "./src/database/schema.ts",
 	dialect: "postgresql",
 	dbCredentials: {
-		url: process.env.DATABASE_URL,
+		url: databaseUrl,
 	},
 	extensionsFilters: ["postgis"],
 });
