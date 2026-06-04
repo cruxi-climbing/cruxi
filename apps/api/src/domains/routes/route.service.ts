@@ -1,4 +1,4 @@
-import { avg, count, eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import type { Database } from "@/database";
 import { ascents, routes, sectors } from "@/database/schema";
 
@@ -14,8 +14,8 @@ export function createRouteService(database: Database) {
 					height: routes.height,
 					sectorId: routes.sectorId,
 					sectorName: sectors.name,
-					ascentsCount: count(ascents.id),
-					avgRating: avg(ascents.rating),
+					ascentsCount: sql`COUNT(${ascents.id})::integer`,
+					avgRating: sql`AVG(${ascents.rating})::float`,
 				})
 				.from(routes)
 				.innerJoin(sectors, eq(routes.sectorId, sectors.id))

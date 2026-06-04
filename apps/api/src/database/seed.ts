@@ -223,7 +223,7 @@ async function seedAscents({
 			userId: randomUserId as string,
 			routeId: randomRouteId as string,
 			ascentStyle: ascentStyle as schema.AscentStyle,
-			rating: randomRating.toString(),
+			rating: randomRating,
 			comment: faker.lorem.sentences(),
 			sentAt: faker.date.past({ years: 10 }).toISOString(),
 			createdAt: faker.date.past({ years: 10 }),

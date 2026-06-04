@@ -216,7 +216,7 @@ export const ascents = pgTable(
 			.notNull()
 			.references(() => routes.id, { onDelete: "cascade" }),
 		sentAt: date("sent_at").notNull(),
-		rating: numeric("rating", { precision: 3, scale: 2 }),
+		rating: numeric("rating", { precision: 3, scale: 2, mode: "number" }),
 		ascentStyle: ascentStyleEnum("ascent_style").default("send").notNull(),
 		proposedGradeIndex: smallint("proposed_grade_index").references(
 			() => gradeIndices.index,

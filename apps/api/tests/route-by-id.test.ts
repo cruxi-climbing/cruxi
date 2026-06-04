@@ -22,14 +22,14 @@ describe("Routes.byId", () => {
 				userId: user.id,
 				routeId: route.id,
 				sentAt: "2024-01-01",
-				rating: "4.5",
+				rating: 4.5,
 				ascentStyle: "send",
 			},
 			{
 				userId: user2.id,
 				routeId: route.id,
 				sentAt: "2024-03-01",
-				rating: "4.0",
+				rating: 4,
 				ascentStyle: "flash",
 			},
 		]);
