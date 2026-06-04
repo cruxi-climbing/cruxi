@@ -2,7 +2,7 @@ import { eq, sql } from "drizzle-orm";
 import type { Database } from "@/database";
 import { routes, sectors, userProjects } from "@/database/schema";
 
-export function createUsersMeProjectsService(database: Database) {
+export function createProjectsListService(database: Database) {
 	return {
 		getProjects: async (userId: string) => {
 			return await database

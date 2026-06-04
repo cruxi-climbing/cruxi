@@ -42,7 +42,7 @@ const routeByIdContract = oc
 	)
 	.output(routeWithDetailSchema);
 
-const usersMeProjectsContract = oc.output(z.array(projectSchema));
+const projectsListContract = oc.output(z.array(projectSchema));
 
 const gradeIndexSchema = z.object({ index: z.number() });
 const gradeSystemSchema = z.object({ id: uuidSchema, name: z.string() });
@@ -57,10 +57,8 @@ export const contract = {
 	routes: {
 		getById: routeByIdContract,
 	},
-	users: {
-		me: {
-			projects: usersMeProjectsContract,
-		},
+	projects: {
+		list: projectsListContract,
 	},
 	grades: {
 		indices: oc.output(z.array(gradeIndexSchema)),

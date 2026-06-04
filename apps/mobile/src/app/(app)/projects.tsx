@@ -4,7 +4,7 @@ import { orpc } from "@/query";
 
 export default function Projects() {
 	const { data: projects = [], error } = useQuery(
-		orpc.users.me.projects.queryOptions(),
+		orpc.projects.list.queryOptions(),
 	);
 
 	if (error)

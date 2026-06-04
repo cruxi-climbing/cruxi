@@ -11,7 +11,7 @@ import {
 import { router } from "@/router";
 import { createTestUser } from "./utils/test.utils";
 
-describe("Users.me.projects", () => {
+describe("Projects.list", () => {
 	it("returns project routes for the authenticated user only", async () => {
 		const { headers, user } = await createTestUser();
 		const route = await createRoute("Project Route A");
@@ -21,7 +21,7 @@ describe("Users.me.projects", () => {
 			routeId: route.id,
 		});
 
-		const response = await call(router.users.me.projects, undefined, {
+		const response = await call(router.projects.list, undefined, {
 			context: { headers, database },
 		});
 
@@ -52,7 +52,7 @@ describe("Users.me.projects", () => {
 			},
 		]);
 
-		const response = await call(router.users.me.projects, undefined, {
+		const response = await call(router.projects.list, undefined, {
 			context: { headers, database },
 		});
 
@@ -72,7 +72,7 @@ describe("Users.me.projects", () => {
 			routeId: route.id,
 		});
 
-		const response = await call(router.users.me.projects, undefined, {
+		const response = await call(router.projects.list, undefined, {
 			context: { headers, database },
 		});
 
