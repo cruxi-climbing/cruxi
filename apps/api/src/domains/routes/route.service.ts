@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { avg, count, eq } from "drizzle-orm";
 import type { Database } from "@/database";
 import { ascents, routes, sectors } from "@/database/schema";
 
@@ -14,8 +14,8 @@ export function createRouteService(database: Database) {
 					height: routes.height,
 					sectorId: routes.sectorId,
 					sectorName: sectors.name,
-					ascentsCount: sql`COUNT(${ascents.id})`,
-					avgRating: sql`AVG(${ascents.rating})`,
+					ascentsCount: count(ascents.id),
+					avgRating: avg(ascents.rating),
 				})
 				.from(routes)
 				.innerJoin(sectors, eq(routes.sectorId, sectors.id))
@@ -41,7 +41,7 @@ export function createRouteService(database: Database) {
 			return {
 				...route,
 				ascentsCount: Number(route.ascentsCount ?? 0),
-				avgRating: route.avgRating ? Number(route.avgRating) : null,
+				avgRating: route.avgRating == null ? null : Number(route.avgRating),
 			};
 		},
 	};
