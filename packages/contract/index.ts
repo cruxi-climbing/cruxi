@@ -59,6 +59,7 @@ export const contract = {
 	},
 	projects: {
 		list: projectsListContract,
+		create: oc.input(z.object({ routeId: uuidSchema })).output(z.void()),
 	},
 	grades: {
 		indices: oc.output(z.array(gradeIndexSchema)),

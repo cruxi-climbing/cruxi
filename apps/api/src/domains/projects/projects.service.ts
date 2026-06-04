@@ -2,7 +2,7 @@ import { eq, sql } from "drizzle-orm";
 import type { Database } from "@/database";
 import { routes, sectors, userProjects } from "@/database/schema";
 
-export function createProjectsListService(database: Database) {
+export function createProjectsService(database: Database) {
 	return {
 		getProjects: async (userId: string) => {
 			return await database
@@ -18,6 +18,15 @@ export function createProjectsListService(database: Database) {
 				.innerJoin(sectors, eq(routes.sectorId, sectors.id))
 				.where(eq(userProjects.userId, userId))
 				.orderBy(sql`${userProjects.createdAt} DESC`);
+		},
+
+		createProject: async (userId: string, routeId: string) => {
+			await database
+				.insert(userProjects)
+				.values({ userId, routeId, createdAt: new Date() })
+				.onConflictDoNothing({
+					target: [userProjects.userId, userProjects.routeId],
+				});
 		},
 	};
 }

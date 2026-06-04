@@ -1,20 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import { call } from "@orpc/server";
 import { database } from "@/database";
-import {
-	areas,
-	gradeIndices,
-	routes,
-	sectors,
-	userProjects,
-} from "@/database/schema";
+import { userProjects } from "@/database/schema";
 import { router } from "@/router";
-import { createTestUser } from "./utils/test.utils";
+import { createRoute, createTestUser } from "../utils/test.utils";
 
 describe("Projects.list", () => {
 	it("returns project routes for the authenticated user only", async () => {
 		const { headers, user } = await createTestUser();
-		const route = await createRoute("Project Route A");
+		const route = await createRoute("Project Route A", { database });
 
 		await database.insert(userProjects).values({
 			userId: user.id,
@@ -36,8 +30,8 @@ describe("Projects.list", () => {
 
 	it("returns projects sorted from newest to oldest", async () => {
 		const { headers, user } = await createTestUser();
-		const firstRoute = await createRoute("Older Route");
-		const secondRoute = await createRoute("Newer Route");
+		const firstRoute = await createRoute("Older Route", { database });
+		const secondRoute = await createRoute("Newer Route", { database });
 
 		await database.insert(userProjects).values([
 			{
@@ -65,7 +59,7 @@ describe("Projects.list", () => {
 	it("does not return projects from another user", async () => {
 		const { headers } = await createTestUser();
 		const otherUser = (await createTestUser()).user;
-		const route = await createRoute("Other User Route");
+		const route = await createRoute("Other User Route", { database });
 
 		await database.insert(userProjects).values({
 			userId: otherUser.id,
@@ -79,28 +73,3 @@ describe("Projects.list", () => {
 		expect(response).toEqual([]);
 	});
 });
-
-async function createRoute(name: string) {
-	const [gradeIndex] = await database.select().from(gradeIndices).limit(1);
-	if (!gradeIndex) throw new Error("Expected reference grade index to exist");
-
-	const areaId = Bun.randomUUIDv7();
-	const sectorId = Bun.randomUUIDv7();
-	const routeId = Bun.randomUUIDv7();
-
-	await database.insert(areas).values({ id: areaId, name: "Test Area" });
-	await database.insert(sectors).values({
-		id: sectorId,
-		name: "Test Sector",
-		areaId,
-	});
-
-	await database.insert(routes).values({
-		id: routeId,
-		name,
-		gradeIndex: gradeIndex.index,
-		sectorId,
-	});
-
-	return { id: routeId, name };
-}
