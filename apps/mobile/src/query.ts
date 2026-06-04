@@ -5,7 +5,7 @@ import { SimpleCsrfProtectionLinkPlugin } from "@orpc/client/plugins";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { authClient } from "./auth-client";
 
-const url = process.env.API_RPC_URL || "http://localhost:3000/rpc";
+const url = process.env.EXPO_PUBLIC_API_RPC_URL || "http://localhost:3000/rpc";
 const link = new RPCLink({
 	url: url,
 	headers: () => {
