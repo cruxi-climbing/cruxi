@@ -31,7 +31,7 @@ COPY . .
 
 # [optional] tests & build
 ENV NODE_ENV=production
-RUN bun verify
+RUN bun run lint && bun run type:check --filter=@cruxi/api
 
 # copy production dependencies and source code into final image
 FROM base AS release

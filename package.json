@@ -7,7 +7,7 @@
 		"setup": "turbo setup",
 		"dev": "turbo dev",
 		"type:check": "turbo type:check",
-		"verify": "bun run type:check && bun run lint",
+		"verify": "bun run lint && bun run type:check",
 		"build": "turbo build",
 		"lint": "biome check .",
 		"lint:fix": "biome check . --write",
