@@ -32,8 +32,6 @@ export function createRouteService(database: Database) {
 				)
 				.limit(1);
 
-			console.log("ascents average rating:", route?.avgRating);
-
 			if (!route) {
 				throw new Error("Route not found");
 			}
