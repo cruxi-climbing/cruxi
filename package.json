@@ -11,7 +11,7 @@
 		"build": "turbo build",
 		"lint": "biome check .",
 		"lint:fix": "biome check . --write",
-		"db:setup": "turbo db:setup"
+		"db:setup": "cd apps/api && bun db:setup"
 	},
 	"workspaces": [
 		"apps/*",
