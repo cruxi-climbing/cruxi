@@ -7,6 +7,7 @@ import {
 import { auth } from "@/auth";
 import { database } from "./database";
 import { router } from "./router";
+import { getLocalIPAddress } from "./utils/os.utils";
 
 const handler = new RPCHandler(router, {
 	plugins: [new CORSPlugin(), new SimpleCsrfProtectionHandlerPlugin()],
@@ -25,6 +26,9 @@ export async function createServer({ port }: { port?: number } = {}) {
 	const server = Bun.serve({
 		port: port ?? envPort,
 		routes: {
+			"/": {
+				GET: () => new Response("Come on dude"),
+			},
 			"/api/auth/*": (request) => {
 				return auth.handler(request);
 			},
@@ -46,8 +50,10 @@ export async function createServer({ port }: { port?: number } = {}) {
 			return new Response("Not found", { status: 404 });
 		},
 	});
-
-	console.info(`Server is running on ${server.url}`);
+	console.clear();
+	console.log(`🚀 Bun server is running!`);
+	console.log(`   - Local:    http://localhost:${server.port}`);
+	console.log(`   - Network:  http://${getLocalIPAddress()}:${server.port}`);
 
 	return server;
 }
