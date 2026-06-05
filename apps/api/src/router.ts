@@ -1,3 +1,4 @@
+import { createClimbingSessionRoute } from "./domains/climbing_sessions/climbing_sessions.route";
 import {
 	gradesAllRoute,
 	gradesIndicesRoute,
@@ -22,6 +23,9 @@ export const router = baseOrpc.router({
 		list: projectsListRoute,
 		create: projectsCreateRoute,
 		delete: projectsDeleteRoute,
+	},
+	climbing_sessions: {
+		create: createClimbingSessionRoute,
 	},
 	grades: {
 		all: gradesAllRoute,

@@ -62,6 +62,15 @@ export const contract = {
 		create: oc.input(z.object({ routeId: uuidSchema })).output(z.void()),
 		delete: oc.input(z.object({ routeId: uuidSchema })).output(z.void()),
 	},
+	climbing_sessions: {
+		create: oc.input(
+			z.object({
+				routeId: uuidSchema,
+				comment: z.string().trim(),
+				sessionDate: z.iso.date(),
+			}),
+		),
+	},
 	grades: {
 		indices: oc.output(z.array(gradeIndexSchema)),
 		systems: oc.output(z.array(gradeSystemSchema)),
