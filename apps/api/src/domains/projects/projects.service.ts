@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import type { Database } from "@/database";
 import { routes, sectors, userProjects } from "@/database/schema";
 
@@ -27,6 +27,17 @@ export function createProjectsService(database: Database) {
 				.onConflictDoNothing({
 					target: [userProjects.userId, userProjects.routeId],
 				});
+		},
+
+		deleteProject: async (userId: string, routeId: string) => {
+			await database
+				.delete(userProjects)
+				.where(
+					and(
+						eq(userProjects.userId, userId),
+						eq(userProjects.routeId, routeId),
+					),
+				);
 		},
 	};
 }

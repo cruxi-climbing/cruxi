@@ -15,3 +15,10 @@ export const projectsCreateRoute = authOrpc.projects.create.handler(
 		return await service.createProject(context.user.id, input.routeId);
 	},
 );
+
+export const projectsDeleteRoute = authOrpc.projects.create.handler(
+	async ({ input, context }) => {
+		const service = createProjectsService(context.database);
+		return await service.deleteProject(context.user.id, input.routeId);
+	},
+);

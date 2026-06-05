@@ -6,6 +6,7 @@ import {
 } from "./domains/grades/grades.route";
 import {
 	projectsCreateRoute,
+	projectsDeleteRoute,
 	projectsListRoute,
 } from "./domains/projects/projects.route";
 import { routeByIdRoute } from "./domains/routes/route.route";
@@ -20,6 +21,7 @@ export const router = baseOrpc.router({
 	projects: {
 		list: projectsListRoute,
 		create: projectsCreateRoute,
+		delete: projectsDeleteRoute,
 	},
 	grades: {
 		all: gradesAllRoute,
