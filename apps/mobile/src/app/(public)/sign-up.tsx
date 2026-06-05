@@ -22,7 +22,7 @@ export default function SignUp() {
 		onSuccess: (response) => {
 			if (response.error) throw response.error;
 
-			router.replace("/projects");
+			router.replace("/");
 		},
 	});
 
