@@ -28,6 +28,9 @@ export async function createServer({ port }: { port?: number } = {}) {
 			"/api/auth/*": (request) => {
 				return auth.handler(request);
 			},
+			"/health": {
+				GET: healthcheck,
+			},
 		},
 
 		async fetch(request) {
@@ -47,4 +50,14 @@ export async function createServer({ port }: { port?: number } = {}) {
 	console.info(`Server is running on ${server.url}`);
 
 	return server;
+}
+
+async function healthcheck() {
+	try {
+		await database.execute("SELECT 1");
+		return new Response("ok", { status: 200 });
+	} catch (e) {
+		console.error(e);
+		return new Response("ko", { status: 503 });
+	}
 }
