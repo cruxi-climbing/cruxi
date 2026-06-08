@@ -10,7 +10,11 @@ export default function RootLayout() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<Stack>
+			<Stack
+				screenOptions={{
+					contentStyle: { backgroundColor: "#FFFBF4" },
+				}}
+			>
 				<Stack.Protected guard={!authenticated}>
 					<Stack.Screen options={{ headerShown: false }} name="(public)" />
 				</Stack.Protected>
