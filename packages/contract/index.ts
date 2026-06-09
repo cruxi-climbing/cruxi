@@ -52,6 +52,14 @@ const gradeNotationSchema = z.object({
 	notation: z.string(),
 });
 
+const climbingSessionSchema = z.object({
+	id: uuidSchema,
+	routeId: uuidSchema,
+	sessionDate: z.iso.date(),
+	comment: z.string().nullable(),
+	createdAt: z.date(),
+});
+
 export const contract = {
 	search: searchRouteContract,
 	routes: {
@@ -66,10 +74,13 @@ export const contract = {
 		create: oc.input(
 			z.object({
 				routeId: uuidSchema,
-				comment: z.string().trim(),
+				comment: z.string().trim().optional(),
 				sessionDate: z.iso.date(),
 			}),
 		),
+		getByRoute: oc
+			.input(z.object({ routeId: uuidSchema }))
+			.output(z.array(climbingSessionSchema)),
 	},
 	grades: {
 		indices: oc.output(z.array(gradeIndexSchema)),

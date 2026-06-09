@@ -9,3 +9,12 @@ export const createClimbingSessionRoute =
 			...input,
 		});
 	});
+
+export const getRouteClimbingSessionsRoute =
+	authOrpc.climbing_sessions.getByRoute.handler(({ input, context }) => {
+		const service = createClimbingSessionsService(context.database);
+		return service.getClimbingSessionsByRoute({
+			userId: context.user.id,
+			routeId: input.routeId,
+		});
+	});

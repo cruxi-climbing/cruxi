@@ -1,4 +1,7 @@
-import { createClimbingSessionRoute } from "./domains/climbing_sessions/climbing_sessions.route";
+import {
+	createClimbingSessionRoute,
+	getRouteClimbingSessionsRoute,
+} from "./domains/climbing_sessions/climbing_sessions.route";
 import {
 	gradesAllRoute,
 	gradesIndicesRoute,
@@ -26,6 +29,7 @@ export const router = baseOrpc.router({
 	},
 	climbing_sessions: {
 		create: createClimbingSessionRoute,
+		getByRoute: getRouteClimbingSessionsRoute,
 	},
 	grades: {
 		all: gradesAllRoute,
