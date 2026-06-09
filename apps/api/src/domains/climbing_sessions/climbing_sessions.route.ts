@@ -10,10 +10,10 @@ export const createClimbingSessionRoute =
 		});
 	});
 
-export const getRouteClimbingSessionsRoute =
-	authOrpc.climbingSessions.getByRoute.handler(({ input, context }) => {
+export const listClimbingSessionsByRoute =
+	authOrpc.climbingSessions.listByRoute.handler(({ input, context }) => {
 		const service = createClimbingSessionsService(context.database);
-		return service.getClimbingSessionsByRoute({
+		return service.findClimbingSessionsByRouteAndUser({
 			userId: context.user.id,
 			routeId: input.routeId,
 		});

@@ -13,7 +13,7 @@ export function createClimbingSessionsService(database: Database) {
 			return await database.insert(climbingSessions).values(data).returning();
 		},
 
-		async getClimbingSessionsByRoute({
+		async findClimbingSessionsByRouteAndUser({
 			userId,
 			routeId,
 		}: {

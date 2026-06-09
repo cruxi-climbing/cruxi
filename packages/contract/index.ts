@@ -78,7 +78,7 @@ export const contract = {
 				sessionDate: z.iso.date(),
 			}),
 		),
-		getByRoute: oc
+		listByRoute: oc
 			.input(z.object({ routeId: uuidSchema }))
 			.output(z.array(climbingSessionSchema)),
 	},
