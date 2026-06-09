@@ -70,7 +70,7 @@ export const contract = {
 		create: oc.input(z.object({ routeId: uuidSchema })).output(z.void()),
 		delete: oc.input(z.object({ routeId: uuidSchema })).output(z.void()),
 	},
-	climbing_sessions: {
+	climbingSessions: {
 		create: oc.input(
 			z.object({
 				routeId: uuidSchema,

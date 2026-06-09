@@ -12,7 +12,7 @@ describe("Create climbing session", () => {
 		const route = await createRoute("Test route", { database });
 
 		await call(
-			router.climbing_sessions.create,
+			router.climbingSessions.create,
 			{
 				routeId: route.id,
 				comment: "Test comment",
@@ -22,7 +22,7 @@ describe("Create climbing session", () => {
 		);
 
 		await call(
-			router.climbing_sessions.create,
+			router.climbingSessions.create,
 			{
 				routeId: route.id,
 				comment: "Test comment",

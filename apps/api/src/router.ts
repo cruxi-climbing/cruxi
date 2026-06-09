@@ -27,7 +27,7 @@ export const router = baseOrpc.router({
 		create: projectsCreateRoute,
 		delete: projectsDeleteRoute,
 	},
-	climbing_sessions: {
+	climbingSessions: {
 		create: createClimbingSessionRoute,
 		getByRoute: getRouteClimbingSessionsRoute,
 	},
