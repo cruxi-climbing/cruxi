@@ -52,6 +52,24 @@ const gradeNotationSchema = z.object({
 	notation: z.string(),
 });
 
+// TODO: dedupe that with schema
+export const ascentStyles = [
+	"onsight",
+	"flash",
+	"redpoint",
+	"top_rope",
+	"send",
+] as const;
+
+const ascentOutputSchema = z.object({
+	sentAt: z.iso.date(),
+	rating: z.number().nullable(),
+	ascentStyle: z.enum(ascentStyles),
+	proposedGradeIndex: z.number().nullable(),
+	comment: z.string().nullable(),
+	route: routeSchema,
+});
+
 const climbingSessionSchema = z.object({
 	id: uuidSchema,
 	routeId: uuidSchema,
@@ -81,6 +99,9 @@ export const contract = {
 		listByRoute: oc
 			.input(z.object({ routeId: uuidSchema }))
 			.output(z.array(climbingSessionSchema)),
+	},
+	ascents: {
+		list: oc.output(z.array(ascentOutputSchema)),
 	},
 	grades: {
 		indices: oc.output(z.array(gradeIndexSchema)),
