@@ -9,7 +9,10 @@ export default function TabLayout() {
 		<Tabs>
 			<TabSlot />
 			<LinearGradient
-				colors={[theme.colors.linearGradienBot, theme.colors.linearGradientTop]}
+				colors={[
+					theme.colors.linearGradientBot,
+					theme.colors.linearGradientTop,
+				]}
 				start={{ x: 0.5, y: 1 }}
 				end={{ x: 0.5, y: 0 }}
 				style={styles.tabListContainer}

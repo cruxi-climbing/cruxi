@@ -9,7 +9,7 @@ export const COLORS = {
 	white: "#ffffff",
 	buttonGrey: "#EFEFEF",
 	lightGrey: "#F6F6F6",
-	linearGradienBot: "rgba(255, 255, 255, 0.88)",
+	linearGradientBot: "rgba(255, 255, 255, 0.88)",
 	linearGradientTop: "rgba(255,255,255,0)",
 } as const;
 
