@@ -1,6 +1,10 @@
 import Svg, { Path, type SvgProps } from "react-native-svg";
+import { theme } from "@/theme/theme";
 
-export const ProfileOutline = ({ color = "#212121", ...props }: SvgProps) => (
+export const ProfileOutline = ({
+	color = theme.colors.black,
+	...props
+}: SvgProps) => (
 	<Svg width={20} height={20} fill="none" {...props}>
 		<Path
 			stroke={color}

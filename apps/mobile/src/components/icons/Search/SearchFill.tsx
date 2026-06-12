@@ -1,6 +1,10 @@
 import Svg, { Path, type SvgProps } from "react-native-svg";
+import { theme } from "@/theme/theme";
 
-export const SearchFill = ({ color = "#DC6955", ...props }: SvgProps) => (
+export const SearchFill = ({
+	color = theme.colors.black,
+	...props
+}: SvgProps) => (
 	<Svg width={20} height={20} fill="none" {...props}>
 		<Path
 			fill={color}

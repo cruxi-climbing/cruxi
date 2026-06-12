@@ -1,6 +1,6 @@
 import type { TabTriggerSlotProps } from "expo-router/ui";
 import { Pressable, StyleSheet, Text } from "react-native";
-
+import { theme } from "@/theme/theme";
 import { type TabIconName, TabIcons } from "./icons/TabIcons";
 
 export type TabButtonProps = TabTriggerSlotProps & {
@@ -21,7 +21,7 @@ export function TabButton({
 			<IconComponent
 				width={22}
 				height={22}
-				color={isFocused ? "#DC6955" : "#212121"}
+				color={isFocused ? theme.colors.peach : theme.colors.black}
 			/>
 
 			<Text style={[styles.label, isFocused && styles.labelFocused]}>
@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
 
 	label: {
 		fontSize: 12,
-		color: "#999",
+		color: theme.colors.black,
 	},
 
 	labelFocused: {
-		color: "#DC6955",
+		color: theme.colors.peach,
 		fontWeight: "500",
 	},
 });
