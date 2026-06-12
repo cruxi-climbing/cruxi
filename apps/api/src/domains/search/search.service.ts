@@ -12,8 +12,10 @@ export function createSearchService(database: Database) {
 					description: routes.description,
 					gradeIndex: routes.gradeIndex,
 					height: routes.height,
-					sectorId: routes.sectorId,
-					sectorName: sectors.name,
+					sector: {
+						id: routes.sectorId,
+						name: sectors.name,
+					},
 				})
 				.from(routes)
 				.innerJoin(sectors, eq(routes.sectorId, sectors.id))

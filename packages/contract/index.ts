@@ -3,14 +3,18 @@ import { z } from "zod";
 
 const uuidSchema = z.uuid({ version: "v7" });
 
+const sectorSchema = z.object({
+	id: uuidSchema,
+	name: z.string(),
+});
+
 const routeSchema = z.object({
 	id: uuidSchema,
 	name: z.string(),
 	description: z.string().nullable(),
 	gradeIndex: z.number(),
 	height: z.number().nullable(),
-	sectorId: uuidSchema,
-	sectorName: z.string(),
+	sector: sectorSchema,
 });
 
 const routeWithDetailSchema = routeSchema.extend({

@@ -23,12 +23,13 @@ export async function createRoute(
 
 	const areaId = Bun.randomUUIDv7();
 	const sectorId = Bun.randomUUIDv7();
+	const sectorName = "Test Sector";
 	const routeId = Bun.randomUUIDv7();
 
 	await database.insert(areas).values({ id: areaId, name: "Test Area" });
 	await database.insert(sectors).values({
 		id: sectorId,
-		name: "Test Sector",
+		name: sectorName,
 		areaId,
 	});
 
@@ -39,5 +40,13 @@ export async function createRoute(
 		sectorId,
 	});
 
-	return { id: routeId, name };
+	return {
+		id: routeId,
+		name,
+		gradeIndex: gradeIndex.index,
+		sector: {
+			id: sectorId,
+			name: sectorName,
+		},
+	};
 }

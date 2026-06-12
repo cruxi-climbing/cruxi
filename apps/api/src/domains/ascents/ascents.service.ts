@@ -4,8 +4,8 @@ import { ascents, routes, sectors } from "@/database/schema";
 
 export function createAscentsService(database: Database) {
 	return {
-		findUserAscents({ userId }: { userId: string }) {
-			return database
+		async findUserAscents({ userId }: { userId: string }) {
+			const foundAscents = await database
 				.select({
 					id: ascents.id,
 					sentAt: ascents.sentAt,
@@ -19,8 +19,10 @@ export function createAscentsService(database: Database) {
 						description: routes.description,
 						gradeIndex: routes.gradeIndex,
 						height: routes.height,
-						sectorId: sectors.id,
-						sectorName: sectors.name,
+					},
+					sector: {
+						id: sectors.id,
+						name: sectors.name,
 					},
 				})
 				.from(ascents)
@@ -28,6 +30,13 @@ export function createAscentsService(database: Database) {
 				.innerJoin(sectors, eq(routes.sectorId, sectors.id))
 				.where(eq(ascents.userId, userId))
 				.orderBy(desc(ascents.sentAt));
+
+			// move sector from ascent.sector to ascent.route.sector
+			return foundAscents.map((ascent) => ({
+				...ascent,
+				route: { ...ascent.route, sector: ascent.sector },
+				sector: undefined,
+			}));
 		},
 	};
 }

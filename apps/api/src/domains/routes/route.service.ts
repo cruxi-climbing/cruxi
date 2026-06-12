@@ -12,24 +12,18 @@ export function createRouteService(database: Database) {
 					description: routes.description,
 					gradeIndex: routes.gradeIndex,
 					height: routes.height,
-					sectorId: routes.sectorId,
-					sectorName: sectors.name,
 					ascentsCount: count(ascents.id),
 					avgRating: sql`AVG(${ascents.rating})`.mapWith(Number),
+					sector: {
+						id: sectors.id,
+						name: sectors.name,
+					},
 				})
 				.from(routes)
 				.innerJoin(sectors, eq(routes.sectorId, sectors.id))
 				.leftJoin(ascents, eq(ascents.routeId, routes.id))
 				.where(eq(routes.id, id))
-				.groupBy(
-					routes.id,
-					routes.name,
-					routes.description,
-					routes.gradeIndex,
-					routes.height,
-					routes.sectorId,
-					sectors.name,
-				)
+				.groupBy(routes.id, sectors.id)
 				.limit(1);
 
 			if (!route) {
