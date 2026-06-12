@@ -1,3 +1,4 @@
+import { ascentStyles } from "@cruxi/shared";
 import { relations, sql } from "drizzle-orm";
 import {
 	boolean,
@@ -192,16 +193,6 @@ export const climbingSessions = pgTable("climbing_sessions", {
 	comment: text("comment"),
 	createdAt: timestamp("created_at").notNull().defaultNow(),
 });
-
-export const ascentStyles = [
-	"onsight",
-	"flash",
-	"redpoint",
-	"top_rope",
-	"send",
-] as const;
-
-export type AscentStyle = (typeof ascentStyles)[number];
 
 export const ascentStyleEnum = pgEnum("ascent_style", ascentStyles);
 

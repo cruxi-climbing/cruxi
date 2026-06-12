@@ -1,3 +1,4 @@
+import { ascentStyles } from "@cruxi/shared";
 import { type ContractRouterClient, oc } from "@orpc/contract";
 import { z } from "zod";
 
@@ -55,15 +56,6 @@ const gradeNotationSchema = z.object({
 	gradeSystemId: uuidSchema,
 	notation: z.string(),
 });
-
-// TODO: dedupe that with schema
-export const ascentStyles = [
-	"onsight",
-	"flash",
-	"redpoint",
-	"top_rope",
-	"send",
-] as const;
 
 const ascentOutputSchema = z.object({
 	sentAt: z.iso.date(),

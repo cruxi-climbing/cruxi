@@ -1,3 +1,4 @@
+import { type AscentStyle, ascentStyles } from "@cruxi/shared";
 import { faker } from "@faker-js/faker";
 import { reset, seed } from "drizzle-seed";
 import { auth } from "@/auth";
@@ -215,14 +216,14 @@ async function seedAscents({
 	}
 
 	for (const combination of usedCombinations) {
-		const ascentStyle = pickRandom(schema.ascentStyles as unknown as string[]);
+		const ascentStyle = pickRandom(ascentStyles as unknown as string[]);
 		const randomRating = Math.round(Math.random() * 5 * 4) / 4; // rating between 0 and 5 with 0.25 step
 
 		const [randomUserId, randomRouteId] = combination.split(";");
 		await database.insert(ascents).values({
 			userId: randomUserId as string,
 			routeId: randomRouteId as string,
-			ascentStyle: ascentStyle as schema.AscentStyle,
+			ascentStyle: ascentStyle as AscentStyle,
 			rating: randomRating,
 			comment: faker.lorem.sentences(),
 			sentAt: faker.date.past({ years: 10 }).toISOString(),

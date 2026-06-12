@@ -18,6 +18,7 @@
         "@better-auth/drizzle-adapter": "^1.6.11",
         "@better-auth/expo": "^1.6.11",
         "@cruxi/contract": "workspace:*",
+        "@cruxi/shared": "workspace:*",
         "@orpc/client": "^1.14.3",
         "@orpc/server": "^1.14.3",
         "better-auth": "^1.6.11",
@@ -79,6 +80,7 @@
     "packages/contract": {
       "name": "@cruxi/contract",
       "dependencies": {
+        "@cruxi/shared": "workspace:*",
         "@orpc/contract": "^1.14.4",
         "zod": "^4.4.3",
       },
