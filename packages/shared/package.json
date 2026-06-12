@@ -1,0 +1,5 @@
+{
+	"name": "@cruxi/shared",
+	"module": "index.ts",
+	"type": "module"
+}
