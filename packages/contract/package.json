@@ -1,8 +1,8 @@
 {
 	"name": "@cruxi/contract",
-	"module": "index.ts",
+	"module": "./src/contract.ts",
 	"type": "module",
-	"exports": "./index.ts",
+	"exports": "./src/contract.ts",
 	"scripts": {
 		"type:check": "tsc -b"
 	},
