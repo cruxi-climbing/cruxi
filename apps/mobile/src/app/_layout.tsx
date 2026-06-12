@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { authClient } from "@/auth-client";
+import { theme } from "@/theme/theme";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +13,7 @@ export default function RootLayout() {
 		<QueryClientProvider client={queryClient}>
 			<Stack
 				screenOptions={{
-					contentStyle: { backgroundColor: "#FFFBF4" },
+					contentStyle: { backgroundColor: theme.colors.background },
 				}}
 			>
 				<Stack.Protected guard={!authenticated}>

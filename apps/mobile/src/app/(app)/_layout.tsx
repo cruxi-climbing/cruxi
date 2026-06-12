@@ -2,13 +2,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { TabList, TabSlot, Tabs, TabTrigger } from "expo-router/ui";
 import { StyleSheet, View } from "react-native";
 import { TabButton } from "@/components/TabButton";
+import { theme } from "@/theme/theme";
 
 export default function TabLayout() {
 	return (
 		<Tabs>
 			<TabSlot />
 			<LinearGradient
-				colors={["rgba(250,249,248,0.86)", "rgba(255,255,255,0)"]}
+				colors={[theme.colors.linearGradienBot, theme.colors.linearGradientTop]}
 				start={{ x: 0.5, y: 1 }}
 				end={{ x: 0.5, y: 0 }}
 				style={styles.tabListContainer}
@@ -49,9 +50,7 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
 	tabListContainer: {
 		position: "absolute",
-		// Quand un élément est en absolute, React Native le place par défaut à : left 0
 		bottom: 0,
-		// backgroundColor: "#faf9f8a0",
 		height: 119,
 		width: "100%",
 		paddingTop: 10,
@@ -64,6 +63,6 @@ const styles = StyleSheet.create({
 		width: 358,
 		padding: 16,
 		borderRadius: 42,
-		backgroundColor: "#ffffff",
+		backgroundColor: theme.colors.white,
 	},
 });
