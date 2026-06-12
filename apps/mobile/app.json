@@ -12,7 +12,8 @@
 			"icon": "./assets/expo.icon",
 			"infoPlist": {
 				"ITSAppUsesNonExemptEncryption": false
-			}
+			},
+			"appleTeamId": "HHZ77NSCN5"
 		},
 		"android": {
 			"package": "com.cruxi",
